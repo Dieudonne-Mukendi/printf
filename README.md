@@ -1,1 +1,1 @@
-This project is about programming printf function in C
+Project by Dieudonne Sombamanya Mukendi and Mercy Laitete Resiato
