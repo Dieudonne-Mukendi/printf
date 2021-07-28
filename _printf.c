@@ -29,7 +29,8 @@ int arg_printer(va_list args, const char *format)
 				_putchar('%'), i++;
 				break;
 			case '\0':
-				so_len = -2; break;
+				so_len = -2;
+				break;
 			case 'd':
 			case 'i':
 				so_len += print_int(args), so_len--;
