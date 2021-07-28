@@ -23,7 +23,7 @@ int arg_printer(va_list arg_ptr, const char *format)
 				c = (char)va_arg(arg_ptr, int), _putchar(c);
 				i++, break;
 			case 's':
-				so_len += print_str(arg_ptr, so_len--, i++;
+				so_len += print_str(arg_ptr), so_len--, i++;
 				break;
 			case '%':
 				_putchar('%'), i++, break;
