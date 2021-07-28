@@ -1,29 +1,49 @@
 #include "holberton.h"
-#include <stdlib.h>
 
 /**
- * check_specs - checks if there is a valid format specifier
+ * arg_printer - find a way to print according to the given format
  * @format: possible format specifier
- *
- * Return: pointer to valid function or NULL
+ * @arg_ptr: pointer to the arguments
+ * Return: The number of characters printed
  */
-static int (*check_specs(const char *format))(va_list)
+int arg_printer(va_list arg_ptr, const char *format)
 {
-	unsigned int i;
-	print_t p[] = {
-		{"c", print_character},
-		{"s", print_string},
-		{NULL, NULL}
-	};
+	int i, so_len = 0;
+	char c;
 
-	for (i = 0; p[i].t != NULL; i++)
+	for (i = 0; format[i] != '\0'; i++)
 	{
-		if (*(p[i].t) == *format)
+		if (format[i] == '%')
 		{
-			break;
+			if (!format[i])
+				return (-1);
+			switch (format[i + 1])
+			{
+			case 'c':
+				c = (char)va_arg(arg_ptr, int), _putchar(c);
+				i++, break;
+			case 's':
+				so_len += print_str(arg_ptr, so_len--, i++;
+				break;
+			case '%':
+				_putchar('%'), i++, break;
+			case '\0':
+				 so_len = -2, break;
+			case 'd':
+			case 'i':
+				so_len += print_int(arg_ptr), so_len--, break;
+			case 'R':
+				so_len += print_rot13(arg_ptr);
+						    so_len--, i++, break;
+			default:
+						    _putchar('%'), break;
+			}
 		}
+		else
+			_putchar(format[i]);
+		so_len++;
 	}
-	return (p[i].f);
+	return (so_len);
 }
 
 /**
@@ -34,38 +54,13 @@ static int (*check_specs(const char *format))(va_list)
  */
 int _printf(const char *format, ...)
 {
-	unsigned int i = 0, count = 0;
-	va_list args;
-	int (*f)(va_list);
+	int so_len;
+	va_list arg_ptr;
 
+	va_start(arg_ptr, format);
 	if (format == NULL)
 		return (-1);
-	va_start(args, format);
-	while (format[i])
-	{
-		for (; format[i] != '%' && format[i]; i++)
-		{
-			_putchar(format[i]);
-			count++;
-		}
-		if (!format[i])
-			return (count);
-		f = check_specs(&format[i + 1]);
-		if (f != NULL)
-		{
-			count += f(args);
-			i += 2;
-			continue;
-		}
-		if (!format[i + 1])
-			return (-1);
-		_putchar(format[i]);
-		count++;
-		if (format[i + 1] == '%')
-			i += 2;
-		else
-			i++;
-	}
-	va_end(args);
-	return (count);
+	so_len = arg_printer(arg_ptr, format);
+	va_end(arg_ptr);
+	return (so_len);
 }
