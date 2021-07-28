@@ -3,10 +3,10 @@
 /**
  * arg_printer - find a way to print according to the given format
  * @format: possible format specifier
- * @arg_ptr: pointer to the arguments
+ * @args: pointer to the arguments
  * Return: The number of characters printed
  */
-int arg_printer(va_list arg_ptr, const char *format)
+int arg_printer(va_list args, const char *format)
 {
 	int i, so_len = 0;
 	char c;
@@ -20,23 +20,26 @@ int arg_printer(va_list arg_ptr, const char *format)
 			switch (format[i + 1])
 			{
 			case 'c':
-				c = (char)va_arg(arg_ptr, int), _putchar(c);
-				i++, break;
+				c = (char)va_arg(args, int), _putchar(c), i++;
+				break;
 			case 's':
-				so_len += print_str(arg_ptr), so_len--, i++;
+				so_len += print_str(args), so_len--, i++;
 				break;
 			case '%':
-				_putchar('%'), i++, break;
+				_putchar('%'), i++;
+				break;
 			case '\0':
-				 so_len = -2, break;
+				so_len = -2; break;
 			case 'd':
 			case 'i':
-				so_len += print_int(arg_ptr), so_len--, break;
+				so_len += print_int(args), so_len--;
+				break;
 			case 'R':
-				so_len += print_rot13(arg_ptr);
-						    so_len--, i++, break;
+				so_len += print_rot13(args), so_len--, i++;
+				break;
 			default:
-						    _putchar('%'), break;
+				_putchar('%');
+				break;
 			}
 		}
 		else
