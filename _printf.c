@@ -47,6 +47,18 @@ int arg_printer(va_list args, const char *format)
 			case 'b':
                                 so_len += print_b (args), so_len--, i++;
                                 break;
+			case 'x':
+                                so_len += print_x (args), so_len--, i++;
+                                break;
+			case 'X':
+                                so_len += print_X (args), so_len--, i++;
+                                break;
+			case 'p':
+                                so_len += print_p (args), so_len--, i++;
+                                break;
+
+
+
 			default:
 				_putchar('%');
 				break;
