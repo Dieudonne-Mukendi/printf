@@ -56,7 +56,12 @@ int arg_printer(va_list args, const char *format)
 			case 'p':
                                 so_len += print_p (args), so_len--, i++;
                                 break;
-
+			case 'S':
+                                so_len += print_S (args), so_len--, i++;
+                                break;
+			case 'r':
+                                so_len += print_r (args), so_len--, i++;
+                                break;
 
 
 			default:
