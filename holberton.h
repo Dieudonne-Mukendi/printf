@@ -25,6 +25,10 @@ int print_str(va_list arg_ptr);
 int print_num(unsigned int n, int c);
 int print_int(va_list arg_ptr);
 int print_rot13(va_list arg_ptr);
+int print_u(va_list arg_ptr);
+int print_o(va_list arg_ptr);
+int print_b(va_list arg_ptr);
+
 /* _printf */
 int _printf(const char *format, ...);
 

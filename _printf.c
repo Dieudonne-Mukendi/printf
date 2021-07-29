@@ -38,6 +38,15 @@ int arg_printer(va_list args, const char *format)
 			case 'R':
 				so_len += print_rot13(args), so_len--, i++;
 				break;
+			case 'u':
+                                so_len += print_u(args), so_len--, i++;
+                                break;
+			case 'o':
+                                so_len += print_o(args), so_len--, i++;
+                                break;
+			case 'b':
+                                so_len += print_b (args), so_len--, i++;
+                                break;
 			default:
 				_putchar('%');
 				break;
